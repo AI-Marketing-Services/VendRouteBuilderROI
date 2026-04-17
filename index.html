@@ -6,37 +6,62 @@
 <title>VendingPreneur — Discovery Call</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;0,900;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 /* ─── RESET & BASE ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy:       #0B1E33;
-  --navy-2:     #152D4A;
-  --navy-3:     #1E3D63;
-  --gold:       #E8A020;
-  --gold-2:     #F5C55A;
-  --green:      #1A9E5C;
-  --green-2:    #22C97A;
-  --red:        #D94F3D;
-  --cream:      #F7F3ED;
-  --cream-2:    #EDE8DF;
-  --white:      #FFFFFF;
-  --text:       #0B1E33;
-  --text-mid:   #4A6080;
-  --text-light: #8A9FBA;
-  --border:     rgba(11,30,51,0.12);
-  --border-2:   rgba(11,30,51,0.07);
-  --shadow-sm:  0 2px 8px rgba(11,30,51,0.08);
-  --shadow-md:  0 6px 24px rgba(11,30,51,0.12);
-  --shadow-lg:  0 16px 48px rgba(11,30,51,0.18);
+  /* Primary Colors */
+  --primary:    #1F9AC5;  /* Blue Wordin - Core brand color */
+  --primary-dark: #0D5E78; /* Deep Marine Teal - Headings, hover states */
+  --primary-light: #6BCFF0; /* Frosted Aqua - Accents, gradients */
+  
+  /* Secondary/Accent */
+  --accent:     #A2F2D4;  /* Mint Breeze - Highlights, soft overlays */
+  --accent-dark: #0086A8; /* Dark Teal - Buttons hover */
+  --accent-light: #38CFF3; /* Mid-Cyan - Hover highlights */
+  
+  /* Backgrounds */
+  --bg-light:   #E8FAFF;  /* Ice Mist - Cards, backgrounds */
+  --bg-lighter: #F8FCFE;  /* Soft Cloud - Minimalist spacing */
+  --bg-mint:    #E0F7F5;  /* Light Aqua Mist - Secondary backgrounds */
+  
+  /* Text Colors */
+  --text:       #1E1E1E;  /* Deep Charcoal - Primary body text */
+  --text-mid:   #3A3A3A;  /* Slate Grey - Subheadings */
+  --text-light: #B9B9B9;  /* Ash Grey - Muted text */
+  --white:      #FFFFFF;  /* Pure White */
+  
+  /* Legacy mappings for compatibility */
+  --navy:       #0D5E78;  /* Deep Marine Teal */
+  --navy-2:     #1F9AC5;  /* Blue Wordin */
+  --navy-3:     #6BCFF0;  /* Frosted Aqua */
+  --gold:       #1F9AC5;  /* Primary blue (replacing gold) */
+  --gold-2:     #6BCFF0;  /* Lighter blue */
+  --green:      #0D5E78;  /* Deep Marine Teal for success states */
+  --green-2:    #A2F2D4;  /* Mint Breeze */
+  --red:        #D94F3D;  /* Keep red for warnings */
+  --cream:      #F8FCFE;  /* Soft Cloud */
+  --cream-2:    #E8FAFF;  /* Ice Mist */
+  
+  /* Card background for dark sections */
+  --card-bg:    #E8FAFF;  /* Ice Mist - light background */
+  --card-text:  #1E1E1E;  /* Deep Charcoal - dark text for cards */
+  --card-text-mid: #3A3A3A; /* Slate Grey */
+  --card-border: rgba(31,154,197,0.2);
+  
+  --border:     rgba(31,154,197,0.15);
+  --border-2:   rgba(31,154,197,0.08);
+  --shadow-sm:  0 2px 8px rgba(13,94,120,0.08);
+  --shadow-md:  0 6px 24px rgba(13,94,120,0.12);
+  --shadow-lg:  0 16px 48px rgba(13,94,120,0.18);
   --radius:     12px;
   --radius-sm:  8px;
   --radius-lg:  16px;
 }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: var(--cream);
   color: var(--text);
   min-height: 100vh;
@@ -44,8 +69,8 @@ body {
 }
 
 /* ─── TYPOGRAPHY ─── */
-.display { font-family: 'Fraunces', serif; }
-h1,h2,h3 { font-family: 'Fraunces', serif; }
+.display { font-family: 'Poppins', sans-serif; }
+h1,h2,h3 { font-family: 'Poppins', sans-serif; }
 
 /* ─── TOPBAR ─── */
 .topbar {
@@ -57,7 +82,7 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
   box-shadow: 0 2px 20px rgba(11,30,51,0.4);
 }
 .topbar-brand {
-  font-family: 'Fraunces', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 18px; font-weight: 700;
   color: var(--white);
   letter-spacing: -0.3px;
@@ -94,12 +119,12 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
   background: var(--navy-2);
 }
 .prog-dot.active {
-  border-color: var(--gold); color: var(--gold);
-  background: rgba(232,160,32,0.15);
-  box-shadow: 0 0 0 4px rgba(232,160,32,0.1);
+  border-color: var(--primary); color: var(--white);
+  background: rgba(197, 224, 234, 0.772);
+  box-shadow: 0 0 0 4px rgba(222, 224, 224, 0.1);
 }
-.prog-dot.done { border-color: var(--green-2); background: var(--green); color: white; }
-.prog-dot.visited { border-color: rgba(212,175,55,.4); color: rgba(212,175,55,.6); background: rgba(212,175,55,.08); }
+.prog-dot.done { border-color: var(--accent); background: var(--primary-dark); color: white; }
+.prog-dot.visited { border-color: rgba(119, 204, 235, 0.4); color: rgba(119, 204, 235, 0.4); background: rgba(119, 204, 235, 0.4); }
 .prog-line {
   flex: 1; height: 2px;
   background: rgba(255,255,255,0.08);
@@ -135,7 +160,7 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
   color: var(--gold); margin-bottom: 10px;
 }
 .step-title {
-  font-family: 'Fraunces', serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 38px; font-weight: 700;
   color: var(--navy); line-height: 1.15; margin-bottom: 10px;
 }
@@ -229,7 +254,7 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
 }
 .picker-btn:hover { border-color: var(--gold); color: var(--gold); }
 .picker-display { text-align: center; }
-.picker-num { font-family: 'Fraunces', serif; font-size: 56px; font-weight: 900; color: var(--navy); line-height: 1; }
+.picker-num { font-family: 'Poppins', sans-serif; font-size: 56px; font-weight: 900; color: var(--navy); line-height: 1; }
 .picker-label { font-size: 12px; font-weight: 600; color: var(--text-mid); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
 .picker-hint { font-size: 13px; color: var(--text-mid); text-align: center; margin-bottom: 28px; line-height: 1.5; }
 
@@ -300,7 +325,7 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
 .pc-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
 .pc-formula { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
 .pc-right { text-align: right; }
-.pc-amount { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 900; color: var(--white); }
+.pc-amount { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 900; color: var(--white); }
 .pc-period { font-size: 12px; color: var(--gold); font-weight: 600; }
 .pc-note { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
 
@@ -310,7 +335,7 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
   padding: 32px; margin-bottom: 28px; color: white;
 }
 .proj-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-.proj-name { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+.proj-name { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 12px; }
 .proj-summary-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .proj-summary-tag { background: rgba(255,255,255,0.1); border-radius: 6px; padding: 6px 14px; font-size: 13px; color: rgba(255,255,255,0.8); }
 .proj-summary-tag strong { color: white; }
@@ -320,11 +345,11 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
 .scenario-col.base { border-color: var(--gold); transform: scale(1.03); box-shadow: var(--shadow-md); }
 .sc-head { padding: 18px 20px; border-bottom: 1px solid var(--border); }
 .sc-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
-.sc-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+.sc-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; color: var(--navy); }
 .sc-sub { font-size: 12px; color: var(--text-mid); margin-top: 2px; }
 .sc-body { padding: 18px 20px; }
 .sc-big { margin-bottom: 14px; }
-.sc-big-num { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--navy); }
+.sc-big-num { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 900; color: var(--navy); }
 .sc-big-lbl { font-size: 11px; color: var(--text-mid); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 .sc-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 13px; }
 .sc-row-lbl { color: var(--text-mid); }
@@ -333,15 +358,15 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
 .sc-row-val.g { color: var(--green); }
 .sc-be { background: var(--cream-2); border-radius: var(--radius-sm); padding: 10px 14px; margin-top: 12px; text-align: center; }
 .sc-be-lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); }
-.sc-be-val { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+.sc-be-val { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; color: var(--navy); }
 
 .invest-table { background: var(--white); border: 2px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
-.invest-head { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+.invest-head { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
 .invest-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; border-bottom: 1px solid var(--border-2); }
 .invest-row.total { border-top: 2px solid var(--navy); border-bottom: none; padding-top: 12px; margin-top: 8px; font-weight: 700; }
 .invest-lbl { color: var(--text-mid); }
 .invest-val { font-weight: 700; color: var(--navy); }
-.invest-val.highlight { color: var(--gold); font-family: 'Fraunces', serif; font-size: 18px; }
+.invest-val.highlight { color: var(--gold); font-family: 'Poppins', sans-serif; font-size: 18px; }
 
 .cost-waiting {
   background: var(--navy); border-radius: var(--radius);
@@ -350,10 +375,10 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
 }
 .cw-left { flex: 1; }
 .cw-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-.cw-headline { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 6px; }
+.cw-headline { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; color: white; margin-bottom: 6px; }
 .cw-body { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
 .cw-right { text-align: right; }
-.cw-num { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 900; color: var(--gold); }
+.cw-num { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 900; color: var(--gold); }
 .cw-lbl { font-size: 12px; color: rgba(255,255,255,0.6); }
 
 /* ─── PACKAGE DISPLAY ─── */
@@ -362,11 +387,11 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
   padding: 32px; margin-bottom: 24px; text-align: center;
 }
 .pkg-rec-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-.pkg-rec-title { font-family: 'Fraunces', serif; font-size: 36px; font-weight: 900; color: white; }
+.pkg-rec-title { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 900; color: white; }
 .pkg-rec-sub { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 6px; }
 .pkg-why { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 14px; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
 .pkg-details { margin-bottom: 24px; }
-.pkg-incl-head { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+.pkg-incl-head { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
 .pkg-incl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .pkg-incl-item { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: flex; gap: 10px; }
 .pkg-check { color: var(--green); font-weight: 700; font-size: 16px; flex-shrink: 0; }
@@ -377,20 +402,20 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
 .pc-up-row { background: var(--white); border: 2px dashed var(--border); border-radius: var(--radius); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .pc-up-name { font-weight: 700; font-size: 15px; color: var(--navy); }
 .pc-up-diff { font-size: 13px; color: var(--text-mid); flex: 1; }
-.pc-up-cta { background: var(--gold); border: none; border-radius: var(--radius-sm); padding: 10px 20px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: white; cursor: pointer; }
+.pc-up-cta { background: var(--gold); border: none; border-radius: var(--radius-sm); padding: 10px 20px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: white; cursor: pointer; }
 
 .price-block { text-align: center; margin-bottom: 20px; }
 .price-toggle { display: inline-flex; background: var(--cream-2); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 16px; }
-.price-toggle-btn { background: transparent; border: none; padding: 10px 24px; border-radius: 6px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
+.price-toggle-btn { background: transparent; border: none; padding: 10px 24px; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-mid); cursor: pointer; transition: all 0.2s; }
 .price-toggle-btn.active { background: var(--white); color: var(--navy); box-shadow: var(--shadow-sm); }
 .price-display { margin-bottom: 8px; }
-.price-amount { font-family: 'Fraunces', serif; font-size: 48px; font-weight: 900; color: var(--navy); }
+.price-amount { font-family: 'Poppins', sans-serif; font-size: 48px; font-weight: 900; color: var(--navy); }
 .price-period { font-size: 16px; color: var(--text-mid); font-weight: 600; }
 .price-note { font-size: 13px; color: var(--text-mid); margin-bottom: 20px; }
 .buy-btn {
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--green); border: none; border-radius: var(--radius);
-  padding: 18px 40px; font-family: 'Fraunces', serif;
+  padding: 18px 40px; font-family: 'Poppins', sans-serif;
   font-size: 20px; font-weight: 700; color: white;
   cursor: pointer; transition: all 0.2s;
   box-shadow: 0 4px 20px rgba(26,158,92,0.3);
@@ -415,7 +440,7 @@ h1,h2,h3 { font-family: 'Fraunces', serif; }
   border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 12px 16px;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px; font-weight: 500;
   color: var(--navy); transition: border-color 0.2s; outline: none;
 }
@@ -450,7 +475,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   margin-bottom: 8px;
 }
 .rank-slot-num {
-  font-family: 'Fraunces', serif; font-weight: 900; font-size: 22px;
+  font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 22px;
   color: var(--gold); width: 28px; text-align: center; flex-shrink: 0;
 }
 .rank-slot-drop {
@@ -470,8 +495,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .rank-chip {
   display: flex; align-items: center; gap: 8px;
   padding: 12px 16px; border-radius: 10px; cursor: grab;
-  background: var(--card-bg); border: 1.5px solid rgba(255,255,255,.08);
-  font-size: 14px; font-weight: 600; color: var(--text-light);
+  background: var(--card-bg); border: 1.5px solid var(--card-border);
+  font-size: 14px; font-weight: 600; color: var(--card-text);
   user-select: none; transition: transform .15s, box-shadow .15s;
   width: 100%;
 }
@@ -496,7 +521,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
   margin-bottom: 24px; position: relative;
 }
 .story-quote {
-  font-size: 48px; color: var(--gold); font-family: 'Fraunces', serif;
+  font-size: 48px; color: var(--gold); font-family: 'Poppins', sans-serif;
   position: absolute; top: 16px; left: 24px; line-height: 1;
 }
 .story-body {
@@ -521,8 +546,8 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .package-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .package-card.recommended { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232,160,32,0.15); }
 .package-card.selected { border-color: var(--green); background: rgba(26,158,92,0.03); box-shadow: 0 0 0 3px rgba(26,158,92,0.2); }
-.package-card .pkg-card-name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-.package-card .pkg-card-price { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
+.package-card .pkg-card-name { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.package-card .pkg-card-price { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 900; color: var(--gold); margin-bottom: 4px; }
 .package-card .pkg-card-period { font-size: 12px; color: var(--text-mid); margin-bottom: 12px; }
 .package-card .pkg-card-items { text-align: left; font-size: 13px; color: var(--text-mid); line-height: 1.8; }
 .package-card .pkg-card-items span { color: var(--green); font-weight: 700; margin-right: 4px; }
@@ -560,13 +585,13 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .btn-back {
   background: transparent; border: 2px solid var(--border);
   border-radius: var(--radius-sm); padding: 12px 24px;
-  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700;
   color: var(--text-mid); cursor: pointer; transition: all 0.2s;
 }
 .btn-back:hover { border-color: var(--text-mid); color: var(--navy); }
 .btn-next {
   background: var(--navy); border: none; border-radius: var(--radius-sm);
-  padding: 14px 36px; font-family: 'Syne', sans-serif;
+  padding: 14px 36px; font-family: 'Inter', sans-serif;
   font-size: 15px; font-weight: 700; color: white; cursor: pointer;
   transition: all 0.2s; display: flex; align-items: center; gap: 8px;
   box-shadow: var(--shadow-md);
@@ -587,7 +612,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 .confirm-screen { text-align: center; max-width: 560px; margin: 0 auto; padding: 80px 24px; }
 .confirm-icon { font-size: 72px; margin-bottom: 24px; animation: pop 0.5s ease; }
 @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.15)} 100%{transform:scale(1)} }
-.confirm-title { font-family: 'Fraunces', serif; font-size: 44px; font-weight: 900; color: var(--navy); margin-bottom: 12px; line-height: 1.15; }
+.confirm-title { font-family: 'Poppins', sans-serif; font-size: 44px; font-weight: 900; color: var(--navy); margin-bottom: 12px; line-height: 1.15; }
 .confirm-title span { color: var(--green); }
 .confirm-body { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 36px; }
 
@@ -595,49 +620,49 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 /* Package column headers */
 .pkg-col-header {
   cursor:pointer;text-align:center;padding:18px 14px;
-  background:var(--card-bg);border:2px solid rgba(255,255,255,.1);
-  color:var(--text-light);width:23.3%;transition:all .2s;
+  background:var(--card-bg);border:2px solid var(--card-border);
+  color:var(--card-text);width:23.3%;transition:all .2s;
   position:relative;
 }
 .pkg-col-header:hover {
-  border-color:var(--gold);background:rgba(212,175,55,.06);
-  transform:translateY(-2px);box-shadow:0 4px 12px rgba(212,175,55,.15);
+  border-color:var(--primary);background:rgba(31,154,197,.06);
+  transform:translateY(-2px);box-shadow:0 4px 12px rgba(31,154,197,.15);
 }
 .pkg-col-header.selected {
-  border-color:var(--gold);background:rgba(212,175,55,.1);
-  box-shadow:0 0 0 3px rgba(212,175,55,.2);
+  border-color:var(--primary);background:rgba(31,154,197,.1);
+  box-shadow:0 0 0 3px rgba(31,154,197,.2);
 }
 .pkg-col-header .pkg-select-hint {
   font-size:10px;text-transform:uppercase;letter-spacing:.1em;
-  color:var(--text-mid);margin-top:8px;opacity:.6;transition:opacity .2s;
+  color:var(--card-text-mid);margin-top:8px;opacity:.6;transition:opacity .2s;
 }
-.pkg-col-header:hover .pkg-select-hint { opacity:1;color:var(--gold); }
-.pkg-col-header.selected .pkg-select-hint { opacity:1;color:var(--green); }
+.pkg-col-header:hover .pkg-select-hint { opacity:1;color:var(--primary); }
+.pkg-col-header.selected .pkg-select-hint { opacity:1;color:var(--primary-dark); }
 .pkg-col-header.selected .pkg-select-hint::before { content:'✓ '; }
 
 /* Counter cards for step 3 */
 .counter-card {
   display:flex;align-items:center;gap:10px;padding:10px 14px;
-  background:var(--card-bg);border:1.5px solid rgba(255,255,255,.08);
+  background:var(--card-bg);border:1.5px solid var(--card-border);
   border-radius:10px;transition:border-color .2s;
 }
-.counter-card.active { border-color:var(--gold); background:rgba(212,175,55,.04); }
+.counter-card.active { border-color:var(--primary); background:rgba(31,154,197,.08); }
 .counter-card .cc-icon { font-size:20px;flex-shrink:0; }
-.counter-card .cc-name { font-size:13px;font-weight:600;color:var(--text-light);flex:1;min-width:0; }
-.counter-card .cc-price { font-size:11px;color:var(--text-mid); }
+.counter-card .cc-name { font-size:13px;font-weight:600;color:var(--card-text);flex:1;min-width:0; }
+.counter-card .cc-price { font-size:11px;color:var(--card-text-mid); }
 .counter-card .cc-controls { display:flex;align-items:center;gap:6px;flex-shrink:0; }
 .counter-card .cc-btn {
-  width:28px;height:28px;border-radius:6px;border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.04);color:var(--text-light);font-size:16px;font-weight:700;
+  width:28px;height:28px;border-radius:6px;border:1px solid var(--card-border);
+  background:var(--white);color:var(--card-text);font-size:16px;font-weight:700;
   cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;
 }
-.counter-card .cc-btn:hover { border-color:var(--gold);color:var(--gold); }
-.counter-card .cc-btn.disabled { opacity:.2;pointer-events:none; }
+.counter-card .cc-btn:hover { border-color:var(--primary);color:var(--primary); }
+.counter-card .cc-btn.disabled { opacity:.3;pointer-events:none; }
 .counter-card .cc-count {
-  font-family:'Fraunces',serif;font-size:18px;font-weight:900;
-  color:var(--gold);min-width:20px;text-align:center;
+  font-family:'Poppins',sans-serif;font-size:18px;font-weight:900;
+  color:var(--primary);min-width:20px;text-align:center;
 }
-.counter-card .cc-count.zero { color:var(--text-mid);opacity:.3; }
+.counter-card .cc-count.zero { color:var(--card-text-mid);opacity:.4; }
 
 @media (max-width: 700px) {
   #step-6.step-screen { max-width: 820px; }
@@ -772,10 +797,10 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <div class="multi-label">Recommended Target Machines</div>
     <div id="recommendedMachines" style="
       text-align:center; padding:20px; border-radius:12px;
-      background:rgba(255,255,255,.03); border:1.5px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03); border:1.5px solid var(--card-border);
       margin-bottom:8px;
     ">
-      <div style="font-family:'Fraunces',serif; font-size:42px; font-weight:900; color:var(--gold);" id="recMachineNum">—</div>
+      <div style="font-family:'Poppins',sans-serif; font-size:42px; font-weight:900; color:var(--gold);" id="recMachineNum">—</div>
       <div style="font-size:13px; color:var(--text-mid); margin-top:4px;" id="recMachineLabel">Rank goals or enter desired profit to see recommendation</div>
     </div>
 
@@ -787,14 +812,14 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     </div>
     <div id="recBreakdown" style="display:none;margin-bottom:16px;">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div id="goalBasedBox" style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;text-align:center;">
+        <div id="goalBasedBox" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;text-align:center;">
           <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:4px;">From Goals</div>
-          <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--text-light);" id="goalBasedNum">—</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:900;color:var(--card-text);" id="goalBasedNum">—</div>
           <div style="font-size:11px;color:var(--text-mid);margin-top:2px;" id="goalBasedDetail"></div>
         </div>
-        <div id="profitBasedBox" style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;text-align:center;">
+        <div id="profitBasedBox" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;text-align:center;">
           <div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:4px;">From Desired Profit</div>
-          <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--text-light);" id="profitBasedNum">—</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:900;color:var(--card-text);" id="profitBasedNum">—</div>
           <div style="font-size:11px;color:var(--text-mid);margin-top:2px;" id="profitBasedDetail"></div>
         </div>
       </div>
@@ -805,9 +830,9 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     </p>
 
     <!-- Manual override -->
-    <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;display:flex;align-items:center;gap:16px;margin-bottom:8px;">
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;display:flex;align-items:center;gap:16px;margin-bottom:8px;">
       <div style="flex:1;">
-        <div style="font-weight:600;font-size:14px;color:var(--text-light);">Different number in mind?</div>
+        <div style="font-weight:600;font-size:14px;color:var(--card-text);">Different number in mind?</div>
         <div style="font-size:12px;color:var(--text-mid);margin-top:2px;">Override the recommendation if the prospect has a specific target.</div>
       </div>
       <input class="form-input" type="text" placeholder="—" id="fnManualMachines" style="width:70px;text-align:center;font-size:20px;font-weight:700;" oninput="applyManualMachines(this)">
@@ -825,7 +850,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
     <!-- Quick Autofill Option -->
     <div style="margin-bottom:20px;">
-      <button onclick="toggleAutofill()" style="width:100%;padding:14px 20px;background:var(--gold);color:var(--navy);border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;">
+      <button onclick="toggleAutofill()" style="width:100%;padding:14px 20px;background:var(--gold);color:var(--white);border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;">
         ⚡ Quick Estimate — Skip the details
       </button>
       <div id="autofillPanel" style="display:none;margin-top:12px;background:var(--card-bg);border:1.5px solid rgba(212,175,55,.2);border-radius:12px;padding:20px;">
@@ -838,7 +863,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         </div>
         <div id="autofillResult" style="display:none;margin-top:14px;padding:14px;background:rgba(212,175,55,.06);border-radius:8px;text-align:center;">
           <div style="font-size:16px;color:var(--text-mid);margin-bottom:4px;">Applied</div>
-          <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:900;color:var(--gold);" id="autofillRevEstimate">-</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:900;color:var(--gold);" id="autofillRevEstimate">-</div>
         </div>
         <button onclick="applyAutofill()" style="margin-top:14px;width:100%;padding:12px;background:rgba(212,175,55,.15);color:var(--gold);border:1.5px solid var(--gold);border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;">
           Apply Quick Estimate to Projection
@@ -851,7 +876,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
     <div style="text-align:center;padding:20px;border-radius:12px;background:rgba(212,175,55,.06);border:1.5px solid rgba(212,175,55,.15);margin-bottom:24px;">
       <div style="font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid);margin-bottom:4px;">Recommended Machines from Step 2</div>
-      <div style="font-family:'Fraunces',serif;font-size:48px;font-weight:900;color:var(--gold);" id="s3RecommendedNum">—</div>
+      <div style="font-family:'Poppins',sans-serif;font-size:48px;font-weight:900;color:var(--gold);" id="s3RecommendedNum">—</div>
       <div style="font-size:13px;color:var(--text-mid);margin-top:2px;" id="s3RecommendedNote">Complete Step 2 to see recommendation</div>
     </div>
 
@@ -916,7 +941,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <span style="font-size:18px;color:var(--text-mid);transition:transform .2s;" id="prospectMatchArrow">▼</span>
       </div>
       <div id="prospectMatchContent" style="display:none;padding:16px 18px;background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.1);border-top:none;border-radius:0 0 10px 10px;">
-        <div id="prospectMatchBody" style="font-size:14px;color:var(--text-light);line-height:1.7;">
+        <div id="prospectMatchBody" style="font-size:14px;color:var(--card-text);line-height:1.7;">
           Configure your route in Step 3 to see a matching VendingPreneur member.
         </div>
       </div>
@@ -927,19 +952,19 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     </div>
     <div style="height:4px;border-radius:2px;background:linear-gradient(to right,var(--gold),var(--green));margin-bottom:16px;"></div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:28px;">
-      <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;">
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;">
         <div style="font-weight:700;font-size:13px;color:var(--gold);margin-bottom:6px;">Meet Onboarding Specialist</div>
         <div style="font-size:11px;color:var(--text-mid);line-height:1.5;">Connect with a specialist at the start. They'll be your point of contact for the first 30–45 days, helping you get oriented and build momentum.</div>
       </div>
-      <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;">
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;">
         <div style="font-weight:700;font-size:13px;color:var(--gold);margin-bottom:6px;">Role of Specialist</div>
         <div style="font-size:11px;color:var(--text-mid);line-height:1.5;">Not a personal coach — they provide structured, program-related guidance and connect you to the right tools, trainings, and internal teams.</div>
       </div>
-      <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;">
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;">
         <div style="font-weight:700;font-size:13px;color:var(--gold);margin-bottom:6px;">Office Hours & Peer Learning</div>
         <div style="font-size:11px;color:var(--text-mid);line-height:1.5;">Small-group sessions for tactical questions and check-ins. Zoom link refreshes every 45 days to prioritize new members.</div>
       </div>
-      <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;">
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px;">
         <div style="font-weight:700;font-size:13px;color:var(--gold);margin-bottom:6px;">Transition & Continued Support</div>
         <div style="font-size:11px;color:var(--text-mid);line-height:1.5;">After onboarding, move into Foundations sessions, weekly calls with Mike, and Ambassador-led calls (12/week).</div>
       </div>
@@ -951,19 +976,19 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <table style="width:100%;border-collapse:separate;border-spacing:0;font-size:13px;min-width:650px;">
         <thead>
           <tr>
-            <th style="text-align:left;padding:14px;background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px 0 0 0;color:var(--text-mid);font-size:11px;text-transform:uppercase;letter-spacing:.08em;width:30%;">&nbsp;</th>
+            <th style="text-align:left;padding:14px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px 0 0 0;color:var(--text-mid);font-size:11px;text-transform:uppercase;letter-spacing:.08em;width:30%;">&nbsp;</th>
             <th id="pkgColBronze" onclick="selectPackage('bronze')" class="pkg-col-header" style="border-radius:0;">
-              <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#CD7F32;">Bronze</div>
+              <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#CD7F32;">Bronze</div>
               <div style="font-size:11px;color:var(--text-mid);font-style:italic;margin-top:6px;font-weight:400;line-height:1.4;">"Best for new entrepreneurs seeking coaching and community support"</div>
               <div class="pkg-select-hint">Click to select</div>
             </th>
             <th id="pkgColSilver" onclick="selectPackage('silver')" class="pkg-col-header" style="border-radius:0;">
-              <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:#A8A9AD;">Silver</div>
+              <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:#A8A9AD;">Silver</div>
               <div style="font-size:11px;color:var(--text-mid);font-style:italic;margin-top:6px;font-weight:400;line-height:1.4;">"Best for entrepreneurs ready to launch with immediate cold lead scrape"</div>
               <div class="pkg-select-hint">Click to select</div>
             </th>
             <th id="pkgColGold" onclick="selectPackage('gold')" class="pkg-col-header" style="border-radius:0 10px 0 0;">
-              <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:700;color:var(--gold);">Gold</div>
+              <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:700;color:var(--gold);">Gold</div>
               <div style="font-size:11px;color:var(--text-mid);font-style:italic;margin-top:6px;font-weight:400;line-height:1.4;">"Best for entrepreneurs ready to launch with immediate cold lead flow"</div>
               <div class="pkg-select-hint">Click to select</div>
             </th>
@@ -972,19 +997,19 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         <tbody id="pkgTableBody">
           <!-- Pricing -->
           <tr>
-            <td style="padding:12px 14px;font-weight:700;color:var(--text-light);border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);">Pricing</td>
+            <td style="padding:12px 14px;font-weight:700;color:var(--card-text);border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);">Pricing</td>
             <td style="text-align:center;padding:12px;border:1px solid rgba(255,255,255,.06);">
-              <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#CD7F32;">$575<span style="font-size:14px;font-weight:400;">/mo</span></div>
+              <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:900;color:#CD7F32;">$575<span style="font-size:14px;font-weight:400;">/mo</span></div>
               <div style="font-size:11px;color:var(--text-mid);">for 12 months</div>
               <div style="font-size:12px;color:var(--green);font-weight:600;margin-top:4px;">15% off paid in full: $5,997</div>
             </td>
             <td style="text-align:center;padding:12px;border:1px solid rgba(255,255,255,.06);">
-              <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:#A8A9AD;">$862<span style="font-size:14px;font-weight:400;">/mo</span></div>
+              <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:900;color:#A8A9AD;">$862<span style="font-size:14px;font-weight:400;">/mo</span></div>
               <div style="font-size:11px;color:var(--text-mid);">for 12 months</div>
               <div style="font-size:12px;color:var(--green);font-weight:600;margin-top:4px;">15% off paid in full: $8,997</div>
             </td>
             <td style="text-align:center;padding:12px;border:1px solid rgba(255,255,255,.06);">
-              <div style="font-family:'Fraunces',serif;font-size:24px;font-weight:900;color:var(--gold);">$1,053<span style="font-size:14px;font-weight:400;">/mo</span></div>
+              <div style="font-family:'Poppins',sans-serif;font-size:24px;font-weight:900;color:var(--gold);">$1,053<span style="font-size:14px;font-weight:400;">/mo</span></div>
               <div style="font-size:11px;color:var(--text-mid);">for 12 months</div>
               <div style="font-size:12px;color:var(--green);font-weight:600;margin-top:4px;">15% off paid in full: $10,997</div>
             </td>
@@ -1144,7 +1169,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <div id="machineTermSlider" style="display:none;margin-bottom:28px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <label class="form-label" style="margin:0;">Machine Financing Term</label>
-        <span style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--gold);" id="machineTermDisplay">36 months</span>
+        <span style="font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;color:var(--gold);" id="machineTermDisplay">36 months</span>
       </div>
       <input type="range" min="12" max="60" step="6" value="36" id="machineTermRange"
         oninput="state.machineFinanceTerm = parseInt(this.value); document.getElementById('machineTermDisplay').textContent = this.value + ' months'; updateFundingUI();"
@@ -1172,7 +1197,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
     <div id="programTermSlider" style="display:none;margin-bottom:28px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <label class="form-label" style="margin:0;">Program Financing Term</label>
-        <span style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;color:var(--gold);" id="programTermDisplay">12 months</span>
+        <span style="font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;color:var(--gold);" id="programTermDisplay">12 months</span>
       </div>
       <input type="range" min="12" max="60" step="6" value="12" id="programTermRange"
         oninput="state.programFinanceTerm = parseInt(this.value); document.getElementById('programTermDisplay').textContent = this.value + ' months'; updateFundingUI();"
@@ -1214,15 +1239,16 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
     <!-- Estimated Investment Output -->
     <div id="fundingOutput" style="display:none;margin-top:20px;">
+      <div id="fundingRouteModeIndicator" style="display:none;margin-bottom:16px;padding:10px 16px;border-radius:8px;font-size:12px;font-weight:600;"></div>
       <div class="multi-label">Estimated Investment Breakdown</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-        <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center;">
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">
           <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid);margin-bottom:6px;">Estimated APR Range</div>
-          <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--gold);" id="estAPR">—</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:28px;font-weight:900;color:var(--gold);" id="estAPR">—</div>
         </div>
-        <div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center;">
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">
           <div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid);margin-bottom:6px;">Likely Down Payment</div>
-          <div style="font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--gold);" id="estDown">—</div>
+          <div style="font-family:'Poppins',sans-serif;font-size:28px;font-weight:900;color:var(--gold);" id="estDown">—</div>
         </div>
       </div>
 
@@ -1237,14 +1263,14 @@ textarea.form-input { resize: vertical; min-height: 80px; }
           </thead>
           <tbody>
             <tr>
-              <td style="padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);" id="machLabel">Machine(s)</td>
-              <td style="text-align:right;padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);" id="machUpfront">—</td>
-              <td style="text-align:right;padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);" id="machMonthly">—</td>
+              <td style="padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);" id="machLabel">Machine(s)</td>
+              <td style="text-align:right;padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);" id="machUpfront">—</td>
+              <td style="text-align:right;padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);" id="machMonthly">—</td>
             </tr>
             <tr>
-              <td style="padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);" id="pkgLabel">Program</td>
-              <td style="text-align:right;padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);" id="pkgUpfront">—</td>
-              <td style="text-align:right;padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);" id="pkgMonthly">—</td>
+              <td style="padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);" id="pkgLabel">Program</td>
+              <td style="text-align:right;padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);" id="pkgUpfront">—</td>
+              <td style="text-align:right;padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);" id="pkgMonthly">—</td>
             </tr>
             <tr>
               <td style="padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);">Startup Costs (LLC, storage, wagon)</td>
@@ -1401,13 +1427,13 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       <div style="display:flex;flex-direction:column;gap:16px;position:sticky;top:120px;">
 
         <!-- What If: 1 Machine -->
-        <div style="background:var(--card-bg);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;">
-          <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;">What if — 1 Machine?</div>
+        <div style="background:var(--card-bg);border:1.5px solid var(--card-border);border-radius:12px;padding:20px;">
+          <div style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;">What if — 1 Machine?</div>
           <div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-bottom:14px;">
-            Average VendingPreneur member revenue is <strong style="color:var(--text-light);">$1,300/mo</strong> per machine. Here's a single-machine projection:
+            Average VendingPreneur member revenue is <strong style="color:var(--card-text);">$1,300/mo</strong> per machine. Here's a single-machine projection:
           </div>
           <div style="font-size:12px;color:var(--text-mid);line-height:1.8;">
-            <div style="display:flex;justify-content:space-between;"><span>Monthly Revenue</span><strong style="color:var(--text-light);">$1,300</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Monthly Revenue</span><strong style="color:var(--card-text);">$1,300</strong></div>
             <div style="display:flex;justify-content:space-between;"><span>COGS (35%)</span><span>−$455</span></div>
             <div style="display:flex;justify-content:space-between;"><span>Other Fees</span><span>−$500/mo</span></div>
             <div style="display:flex;justify-content:space-between;"><span>Machine Cost</span><span>$3,500</span></div>
@@ -1420,10 +1446,10 @@ textarea.form-input { resize: vertical; min-height: 80px; }
         </div>
 
         <!-- What If: Double Your Route -->
-        <div style="background:var(--card-bg);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;">
-          <div style="font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;">What if — Double Your Route?</div>
+        <div style="background:var(--card-bg);border:1.5px solid var(--card-border);border-radius:12px;padding:20px;">
+          <div style="font-family:'Poppins',sans-serif;font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px;">What if — Double Your Route?</div>
           <div style="font-size:12px;color:var(--text-mid);line-height:1.6;margin-bottom:14px;">
-            Same locations and machines as your route, but <strong style="color:var(--text-light);">×2</strong>. No additional program cost.
+            Same locations and machines as your route, but <strong style="color:var(--card-text);">×2</strong>. No additional program cost.
           </div>
           <div id="whatIfDoubleBody" style="font-size:12px;color:var(--text-mid);line-height:1.8;">
             <div style="opacity:.5;">Configure your route to see this projection.</div>
@@ -1435,7 +1461,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
 
     <div class="step-nav">
       <button class="btn-back" onclick="prevStep()">← Back</button>
-      <button onclick="grabProjectionPDF()" style="background:var(--navy-2);border:2px solid var(--gold);border-radius:var(--radius-sm);padding:12px 24px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--gold);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;" onmouseover="this.style.background='var(--navy-3)'" onmouseout="this.style.background='var(--navy-2)'">📄 Grab PDF</button>
+      <button onclick="grabProjectionPDF()" style="background:var(--navy-2);border:2px solid var(--white);border-radius:var(--radius-sm);padding:12px 24px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--white);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .2s;" onmouseover="this.style.background='var(--navy-3)'" onmouseout="this.style.background='var(--navy-2)'">📄 Grab PDF</button>
       <button class="btn-next" onclick="submitForm()">Submit Discovery Form <span class="btn-next-arrow">→</span></button>
     </div>
   </div>
@@ -1459,7 +1485,7 @@ textarea.form-input { resize: vertical; min-height: 80px; }
       </div>
       
       <button class="btn-next" onclick="location.reload()" style="margin:0 auto;">Start New Discovery Call <span class="btn-next-arrow">→</span></button>
-      <button onclick="goBackToEdit()" style="margin:12px auto 0;display:block;background:transparent;border:2px solid var(--gold);border-radius:var(--radius-sm);padding:12px 28px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--gold);cursor:pointer;transition:all .2s;">← Go Back & Edit</button>
+      <button onclick="goBackToEdit()" style="margin:12px auto 0;display:block;background:transparent;border:2px solid var(--gold);border-radius:var(--radius-sm);padding:12px 28px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--gold);cursor:pointer;transition:all .2s;">← Go Back & Edit</button>
     </div>
   </div>
 
@@ -1629,6 +1655,7 @@ function showStep(id) {
     const matchContent = document.getElementById('prospectMatchContent');
     if (matchContent && matchContent.style.display !== 'none') findProspectMatch();
   }
+  if (id === 'step-5') updateFundingUI();
 }
 
 function formatPhone(input) {
@@ -2055,9 +2082,9 @@ function renderUnitInputs() {
       const displayNum = count > 1 ? ' #' + (i + 1) : '';
 
       const row = document.createElement('div');
-      row.style.cssText = 'background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px;';
+      row.style.cssText = 'background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:14px 16px;';
       row.innerHTML =
-        '<div style="font-weight:600;font-size:14px;color:var(--text-light);margin-bottom:8px;">' + label + displayNum + '</div>' +
+        '<div style="font-weight:600;font-size:14px;color:var(--card-text);margin-bottom:8px;">' + label + displayNum + '</div>' +
         '<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">' +
           '<div style="flex:1;min-width:160px;">' +
             '<div style="font-size:11px;color:var(--text-mid);margin-bottom:4px;"># of ' + info.label + '</div>' +
@@ -2636,6 +2663,31 @@ function updateFundingUI() {
   if (!machFunding && !progFunding) { outputSection.style.display = 'none'; return; }
   outputSection.style.display = 'block';
 
+  // Update route mode indicator in funding section
+  const fundingModeIndicator = document.getElementById('fundingRouteModeIndicator');
+  const fundmodeon = false;
+  if (fundingModeIndicator && fundmodeon == true) {
+    if (state.routeMode === 'specific') {
+      fundingModeIndicator.style.display = 'block';
+      fundingModeIndicator.style.background = 'rgba(26,158,92,.1)';
+      fundingModeIndicator.style.border = '1.5px solid rgba(26,158,92,.3)';
+      fundingModeIndicator.style.color = 'var(--green)';
+      fundingModeIndicator.innerHTML = '📍 Using <strong>Specific Route</strong> from Step 3 — ' + numMachines + ' machine' + (numMachines !== 1 ? 's' : '') + ' configured';
+    } else if (state.routeMode === 'autofill') {
+      fundingModeIndicator.style.display = 'block';
+      fundingModeIndicator.style.background = 'rgba(31,154,197,.1)';
+      fundingModeIndicator.style.border = '1.5px solid rgba(31,154,197,.3)';
+      fundingModeIndicator.style.color = 'var(--primary)';
+      fundingModeIndicator.innerHTML = '⚡ Using <strong>Quick Estimate</strong> from Step 3 — ' + numMachines + ' machine' + (numMachines !== 1 ? 's' : '') + ' @ $6,000 avg';
+    } else {
+      fundingModeIndicator.style.display = 'block';
+      fundingModeIndicator.style.background = 'rgba(58,58,58,.08)';
+      fundingModeIndicator.style.border = '1.5px solid rgba(58,58,58,.2)';
+      fundingModeIndicator.style.color = 'var(--text-mid)';
+      fundingModeIndicator.innerHTML = '📊 Using <strong>Default Estimate</strong> — ' + numMachines + ' machine' + (numMachines !== 1 ? 's' : '') + ' @ ' + $$(avgMachineCost) + ' avg';
+    }
+  }
+
   const $ = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
   const $$ = (v) => '$' + Math.round(v).toLocaleString();
 
@@ -2980,7 +3032,7 @@ function computeProjection() {
       routeRows.push({ propLabel, machLabel, units, dpm, rpm, cost });
 
       tbody.innerHTML += '<tr>' +
-        '<td style="padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);">' + propLabel + '</td>' +
+        '<td style="padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);">' + propLabel + '</td>' +
         '<td style="text-align:center;padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);font-size:12px;">' + machLabel + '</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);">' + (units ? units.toLocaleString() : '—') + '</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);">$' + dpm.toFixed(2) + '</td>' +
@@ -3003,7 +3055,7 @@ function computeProjection() {
     totalMachineCost = 6000 * machineCount;
     tbody.innerHTML =
       '<tr>' +
-        '<td colspan="3" style="padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);">' + machineCount + ' machines × ' + af.visitors + ' avg daily visitors (' + locLabel + ')</td>' +
+        '<td colspan="3" style="padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);">' + machineCount + ' machines × ' + af.visitors + ' avg daily visitors (' + locLabel + ')</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);">$' + af.dpmRate.toFixed(2) + '/visitor</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--green);font-weight:600;border:1px solid rgba(255,255,255,.06);">' + $$(af.monthlyRevPerMachine) + '/mo ea</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);">$6,000 ea</td>' +
@@ -3021,7 +3073,7 @@ function computeProjection() {
     totalMachineCost = 6000 * machineCount;
     tbody.innerHTML =
       '<tr>' +
-        '<td colspan="4" style="padding:10px 14px;color:var(--text-light);border:1px solid rgba(255,255,255,.06);">' + machineCount + ' machines × $1000/mo (VendingPreneur median)</td>' +
+        '<td colspan="4" style="padding:10px 14px;color:var(--card-text);border:1px solid rgba(255,255,255,.06);">' + machineCount + ' machines × $1000/mo (VendingPreneur median)</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--green);font-weight:600;border:1px solid rgba(255,255,255,.06);">' + $$(totalMonthlyRev) + '/mo</td>' +
         '<td style="text-align:right;padding:10px 14px;color:var(--text-mid);border:1px solid rgba(255,255,255,.06);">' + $$(totalMachineCost) + '</td>' +
       '</tr>';
@@ -3124,7 +3176,7 @@ function computeProjection() {
     profitSection.innerHTML =
       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;">' +
         // Phase 1
-        '<div style="background:var(--card-bg);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1.5px solid var(--card-border);border-radius:12px;padding:20px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid);margin-bottom:4px;">Both Financing</div>' +
           '<div style="font-size:12px;color:var(--text-mid);margin-bottom:12px;">Months 1–' + shorterTerm + '</div>' +
           '<div style="font-family:\'Fraunces\',serif;font-size:32px;font-weight:900;color:' + (phase1Profit >= 0 ? 'var(--green)' : 'var(--red)') + ';">' + $$(phase1Profit) + '</div>' +
@@ -3149,13 +3201,13 @@ function computeProjection() {
         '</div>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Monthly Revenue</div>' +
           '<div style="font-family:\'Fraunces\',serif;font-size:24px;font-weight:900;color:var(--gold);">' + $$(totalMonthlyRev) + '</div>' +
         '</div>' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Asset Value</div>' +
-          '<div style="font-family:\'Fraunces\',serif;font-size:24px;font-weight:900;color:var(--text-light);">' + $$(assetValue) + '</div>' +
+          '<div style="font-family:\'Fraunces\',serif;font-size:24px;font-weight:900;color:var(--card-text);">' + $$(assetValue) + '</div>' +
         '</div>' +
       '</div>';
 
@@ -3165,7 +3217,7 @@ function computeProjection() {
 
     profitSection.innerHTML =
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;">' +
-        '<div style="background:var(--card-bg);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:24px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1.5px solid var(--card-border);border-radius:12px;padding:24px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-mid);margin-bottom:4px;">During Financing</div>' +
           '<div style="font-size:12px;color:var(--text-mid);margin-bottom:12px;">First ' + activeTerm + ' months</div>' +
           '<div style="font-family:\'Fraunces\',serif;font-size:36px;font-weight:900;color:' + (monthlyProfitDuring >= 0 ? 'var(--green)' : 'var(--red)') + ';">' + $$(monthlyProfitDuring) + '</div>' +
@@ -3181,29 +3233,29 @@ function computeProjection() {
         '</div>' +
       '</div>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Monthly Revenue</div>' +
           '<div style="font-family:\'Fraunces\',serif;font-size:24px;font-weight:900;color:var(--gold);">' + $$(totalMonthlyRev) + '</div>' +
         '</div>' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:16px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:16px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Asset Value</div>' +
-          '<div style="font-family:\'Fraunces\',serif;font-size:24px;font-weight:900;color:var(--text-light);">' + $$(assetValue) + '</div>' +
+          '<div style="font-family:\'Fraunces\',serif;font-size:24px;font-weight:900;color:var(--card-text);">' + $$(assetValue) + '</div>' +
         '</div>' +
       '</div>';
   } else {
     profitSection.innerHTML =
       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px;">' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:18px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Monthly Revenue</div>' +
           '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:900;color:var(--gold);">' + $$(totalMonthlyRev) + '</div>' +
         '</div>' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:18px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Monthly Take-Home</div>' +
           '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:900;color:var(--green);">' + $$(monthlyProfit) + '</div>' +
         '</div>' +
-        '<div style="background:var(--card-bg);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:18px;text-align:center;">' +
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;padding:18px;text-align:center;">' +
           '<div style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-mid);margin-bottom:6px;">Asset Value</div>' +
-          '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:900;color:var(--text-light);">' + $$(assetValue) + '</div>' +
+          '<div style="font-family:\'Fraunces\',serif;font-size:30px;font-weight:900;color:var(--card-text);">' + $$(assetValue) + '</div>' +
         '</div>' +
       '</div>';
   }
@@ -3258,8 +3310,8 @@ function computeProjection() {
     const dblAsset = dblRev * 12 * 1.1;
 
     dblBody.innerHTML =
-      '<div style="display:flex;justify-content:space-between;"><span>' + dblN + ' Machines</span><strong style="color:var(--text-light);">' + $$(dblMachCost) + '</strong></div>' +
-      '<div style="display:flex;justify-content:space-between;"><span>Monthly Revenue</span><strong style="color:var(--text-light);">' + $$(dblRev) + '</strong></div>' +
+      '<div style="display:flex;justify-content:space-between;"><span>' + dblN + ' Machines</span><strong style="color:var(--card-text);">' + $$(dblMachCost) + '</strong></div>' +
+      '<div style="display:flex;justify-content:space-between;"><span>Monthly Revenue</span><strong style="color:var(--card-text);">' + $$(dblRev) + '</strong></div>' +
       '<div style="display:flex;justify-content:space-between;"><span>COGS (35%)</span><span>−' + $$(dblCogs/12) + '/mo</span></div>' +
       '<div style="display:flex;justify-content:space-between;"><span>Other Expenses</span><span>−' + $$((dblSaas + dblData + dblInsurance)/12) + '/mo</span></div>' +
       '<div style="height:1px;background:rgba(255,255,255,.08);margin:8px 0;"></div>' +
@@ -3329,6 +3381,7 @@ function grabProjectionPDF() {
       .replace(/var\(--text-mid\)/g, C.textMid)
       .replace(/var\(--text-light\)/g, C.textLight)
       .replace(/var\(--card-bg\)/g, C.card)
+      .replace(/var\(--card-text\)/g, C.green) 
       .replace(/var\(--border\)/g, C.border)
       .replace(/var\(--border-2\)/g, 'rgba(255,255,255,0.05)')
       .replace(/var\(--shadow-sm\)/g, 'none')
@@ -3342,7 +3395,7 @@ function grabProjectionPDF() {
 
   // Build the PDF HTML — single column, fixed 800px width
   const pdfHTML = `
-    <div style="width:800px;background:${C.bg};color:${C.textLight};font-family:'Syne',Helvetica,Arial,sans-serif;padding:32px;">
+    <div style="width:800px;background:${C.bg};color:${C.textLight};font-family:'Inter',Helvetica,Arial,sans-serif;padding:32px;">
       
       <!-- Header -->
       <div style="margin-bottom:24px;">
