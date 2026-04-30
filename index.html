@@ -3705,12 +3705,14 @@ function collectFormData(stepNum) {
 function sendToSheet(stepNum) {
   const formData = collectFormData(stepNum);
   
-  // Add shareable URL when completing the form
-  if (stepNum >= 9) {
+  // Always include shareable URL so the sheet has the most recent version
+  try {
     formData.shareable_url = generateShareableURL();
+  } catch (e) {
+    console.error('Failed to generate shareable URL:', e);
   }
   
-  if(GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== 'https://script.google.com/macros/s/AKfycbwGJF4EXm6UfOgPgb0HL_ce8nsvhfJSlMsr_dlpBVeYahLEgD6lmoDhFH3zKNiXLJYnrg/exec') {
+  if(GOOGLE_SHEET_URL ) {
     fetch(GOOGLE_SHEET_URL, {
       method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
